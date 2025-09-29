@@ -137,20 +137,7 @@ namespace CustomMath
         {
             return "X = " + x.ToString() + "   Y = " + y.ToString() + "   Z = " + z.ToString();
         }
-        public static float Angle(Vec3 from, Vec3 to)
-        {
-            float dot = Dot(from, to);
-            float angleInRadians = dot / (from.magnitude * to.magnitude);
-            return (float)(Math.Acos(angleInRadians) * 180 / Math.PI);
-        }
-        public static Vec3 ClampMagnitude(Vec3 vector, float maxLength)
-        {
-            if (vector.magnitude <= maxLength)
-                return vector;
 
-            vector.Normalize();
-            return vector * maxLength;
-        }
         public static float Magnitude(Vec3 vector)
         {
             return (float)Math.Sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
@@ -163,58 +150,7 @@ namespace CustomMath
                 (a.x * b.y - a.y * b.x)
                 );
         }
-        public static float Distance(Vec3 a, Vec3 b)
-        {
-            return (a - b).magnitude;
-        }
-        public static float Dot(Vec3 a, Vec3 b)
-        {
-            return (a.x * b.x + a.y * b.y + a.z * b.z);
-        }
-        public static Vec3 Lerp(Vec3 a, Vec3 b, float t)
-        {
-            throw new NotImplementedException();
-        }
-        public static Vec3 LerpUnclamped(Vec3 a, Vec3 b, float t)
-        {
-            throw new NotImplementedException();
-        }
-        public static Vec3 Max(Vec3 a, Vec3 b)
-        {
-            return new Vec3(
-                (a.x > b.x) ? a.x : b.x,
-                (a.y > b.y) ? a.y : b.y,
-                (a.z > b.z) ? a.z : b.z
-                );
-        }
-        public static Vec3 Min(Vec3 a, Vec3 b)
-        {
-            return new Vec3(
-                (a.x < b.x) ? a.x : b.x,
-                (a.y < b.y) ? a.y : b.y,
-                (a.z < b.z) ? a.z : b.z
-                );
-        }
-        public static float SqrMagnitude(Vec3 vector)
-        {
-            return (vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
-        }
-        public static Vec3 Project(Vec3 vector, Vec3 onNormal)
-        {
-            throw new NotImplementedException();
-        }
-        public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal)
-        {
-            throw new NotImplementedException();
-        }
-        public void Set(float newX, float newY, float newZ)
-        {
-            this = new Vec3(newX, newY, newZ);
-        }
-        public void Scale(Vec3 scale)
-        {
-            this = new Vec3(this.x * scale.x, this.y * scale.y, this.z * scale.z);
-        }
+
         public void Normalize()
         {
             this = this / this.magnitude;
@@ -235,7 +171,7 @@ namespace CustomMath
 
         public override int GetHashCode()
         {
-            return x.GetHashCode() ^ (y.GetHashCode() << 2) ^ (z.GetHashCode() >> 2);
+            throw new NotImplementedException();
         }
         #endregion
     }

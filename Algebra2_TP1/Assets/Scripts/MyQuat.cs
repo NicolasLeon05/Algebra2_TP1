@@ -48,7 +48,6 @@ namespace CustomMath
         #endregion
 
         #region Constants
-        public const float kEpsilon = 1e-06f;
         public static MyQuat identity { get { return new MyQuat(0f, 0f, 0f, 1f); } }
         #endregion
 
@@ -81,29 +80,18 @@ namespace CustomMath
             );
         }
 
-        public static Vector3 operator *(MyQuat rotation, Vector3 point)
-        {
-            MyQuat qPoint = new MyQuat(point.x, point.y, point.z, 0f);
-            MyQuat qConjugate = new MyQuat(-rotation.x, -rotation.y, -rotation.z, rotation.w);
 
-            MyQuat result = rotation * qPoint * qConjugate;
-            return new Vector3(result.x, result.y, result.z);
+        public static bool operator ==(MyQuat q1, MyQuat q2)
+        {
+            return (q1.x == q2.x &&
+                q1.y == q2.y &&
+                q1.z == q2.z &&
+                q1.w == q2.w);
         }
 
-        public static bool operator ==(MyQuat lhs, MyQuat rhs)
+        public static bool operator !=(MyQuat q1, MyQuat q2)
         {
-            return (lhs.x == rhs.x &&
-                lhs.y == rhs.y &&
-                lhs.z == rhs.z &&
-                lhs.w == rhs.w);
-        }
-
-        public static bool operator !=(MyQuat lhs, MyQuat rhs)
-        {
-            return (lhs.x != rhs.x ||
-                lhs.y != rhs.y ||
-                lhs.z != rhs.z ||
-                lhs.w != rhs.w);
+            return !(q1 == q2);
         }
 
         public static implicit operator Quaternion(MyQuat q)
@@ -143,67 +131,6 @@ namespace CustomMath
 
         }
 
-        public void ToAngleAxis(out float angle, out Vector3 axis)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetLookRotation(Vector3 view)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetLookRotation(Vector3 view, Vector3 up)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetFromToRotation(Vector3 fromDirection, Vector3 toDirection)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static MyQuat FromToRotation(Vector3 fromDirection, Vector3 toDirection)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static MyQuat LookRotation(Vector3 forward, Vector3 upwards)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static MyQuat LookRotation(Vector3 forward)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static MyQuat RotateTowards(MyQuat from, MyQuat to, float maxDegreesDelta)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static MyQuat Inverse(MyQuat rotation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static MyQuat AngleAxis(float angle, Vector3 axis)
-        {
-            Vector3 normAxis = axis.normalized;
-            float rad = angle * Mathf.Deg2Rad * 0.5f;
-
-            float sin = Mathf.Sin(rad);
-            float cos = Mathf.Cos(rad);
-
-            return new MyQuat(
-                normAxis.x * sin,
-                normAxis.y * sin,
-                normAxis.z * sin,
-                cos
-            );
-        }
-
         public static MyQuat Euler(float x, float y, float z)
         {
             float radX = x * Mathf.Deg2Rad * 0.5f;
@@ -225,42 +152,6 @@ namespace CustomMath
 
             return Normalize(q);
         }
-
-        public static MyQuat Euler(Vector3 euler)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static float Angle(MyQuat a, MyQuat b)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static float Dot(MyQuat a, MyQuat b)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static MyQuat Lerp(MyQuat a, MyQuat b, float t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static MyQuat LerpUnclamped(MyQuat a, MyQuat b, float t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static MyQuat Slerp(MyQuat a, MyQuat b, float t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static MyQuat SlerpUnclamped(MyQuat a, MyQuat b, float t)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
 
         #region Internals

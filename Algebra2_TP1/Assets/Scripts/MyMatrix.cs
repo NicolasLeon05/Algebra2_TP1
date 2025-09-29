@@ -140,19 +140,6 @@ namespace CustomMath
             return new Vec3(x, y, z);
         }
 
-        public Vec3 MultiplyVector(Vec3 vector)
-        {
-            float x = m00 * vector.x + m01 * vector.y + m02 * vector.z;
-            float y = m10 * vector.x + m11 * vector.y + m12 * vector.z;
-            float z = m20 * vector.x + m21 * vector.y + m22 * vector.z;
-            return new Vec3(x, y, z);
-        }
-
-        public static Vec3 operator *(MyMatrix4x4 m, Vec3 v)
-        {
-            return m.MultiplyPoint(v);
-        }
-
 
         public override string ToString()
         {
