@@ -160,7 +160,9 @@ namespace CustomMath
         #region Internals
         public override bool Equals(object other)
         {
-            if (!(other is Vec3)) return false;
+            if (!(other is Vec3)) 
+                return false;
+
             return Equals((Vec3)other);
         }
 

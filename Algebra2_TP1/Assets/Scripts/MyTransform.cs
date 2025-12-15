@@ -61,14 +61,76 @@ namespace CustomMath
             }
         }
 
-        public void SetParent(MyTransform newParent)
-        {
-            parent?.children.Remove(this);
 
+        public MyMatrix4x4 worldToLocalMatrix
+        {
+            get
+            {
+                if (parent == null)
+                    return MyMatrix4x4.identity;
+
+                // Inversa TRS simple (sin shear)
+                Vec3 invScale = new Vec3(
+                    1f / parent.lossyScale.x,
+                    1f / parent.lossyScale.y,
+                    1f / parent.lossyScale.z
+                );
+
+                MyQuat invRot = new MyQuat(
+                    -parent.rotation.x,
+                    -parent.rotation.y,
+                    -parent.rotation.z,
+                    parent.rotation.w
+                );
+
+                return
+                    MyMatrix4x4.Scale(invScale) *
+                    MyMatrix4x4.Rotate(invRot) *
+                    MyMatrix4x4.Translate(-parent.position);
+            }
+        }
+
+
+        public void SetParent(MyTransform newParent, bool worldPositionStays = true)
+        {
+            Vec3 worldPos = position;
+            MyQuat worldRot = rotation;
+            Vec3 worldScale = lossyScale;
+
+            parent?.children.Remove(this);
             parent = newParent;
 
             if (newParent != null && !newParent.children.Contains(this))
-                newParent.AddChild(this);
+                newParent.children.Add(this);
+
+            if (worldPositionStays)
+            {
+                if (parent == null)
+                {
+                    localPosition = worldPos;
+                    localRotation = worldRot;
+                    localScale = worldScale;
+                }
+                else
+                {
+                    MyMatrix4x4 worldToLocal = parent.worldToLocalMatrix;
+
+                    localPosition = worldToLocal.MultiplyPoint(worldPos);
+                    localRotation = MyQuat.Normalize(
+                        new MyQuat(
+                            Quaternion.Inverse((Quaternion)parent.rotation) *
+                            (Quaternion)worldRot
+                        )
+                    );
+
+                    Vec3 pScale = parent.lossyScale;
+                    localScale = new Vec3(
+                        worldScale.x / pScale.x,
+                        worldScale.y / pScale.y,
+                        worldScale.z / pScale.z
+                    );
+                }
+            }
         }
 
         public void AddChild(MyTransform child)

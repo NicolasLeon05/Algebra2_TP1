@@ -146,9 +146,9 @@ namespace CustomMath
 
             MyQuat q;
             q.w = cosX * cosY * cosZ + sinX * sinY * sinZ;
-            q.x = sinX * cosY * cosZ - cosX * sinY * sinZ;
-            q.y = cosX * sinY * cosZ + sinX * cosY * sinZ;
-            q.z = cosX * cosY * sinZ - sinX * sinY * cosZ;
+            q.x = sinX * cosY * cosZ - cosX * sinY * sinZ; // MyQuat qx = new MyQuat(cosX, sinX, 0, 0)
+            q.y = cosX * sinY * cosZ + sinX * cosY * sinZ; // MyQuat qy = new MyQuat(cosX, 0, sinY, 0)
+            q.z = cosX * cosY * sinZ - sinX * sinY * cosZ; // MyQuat qz = new MyQuat(cosX, 0, 0, sinZ)
 
             return Normalize(q);
         }

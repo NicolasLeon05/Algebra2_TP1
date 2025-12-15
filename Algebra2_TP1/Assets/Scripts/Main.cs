@@ -18,6 +18,23 @@ public class Main : MonoBehaviour
         cylinder.SetParent(capsule);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            cylinder.SetParent(null);
+            Debug.Log("Cylinder parent removed");
+        }
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            capsule.SetParent(null);
+            Debug.Log("Capsule parent removed");
+
+        }
+    }
+
+
     private void OnValidate()
     {
         cube?.UpdateRotationFromEuler();
